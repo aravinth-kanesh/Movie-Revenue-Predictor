@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 import warnings
 
 # Import project modules
-from src.app_utils import load_models, load_sample_data, model_selector, load_css
+from utils import load_models, load_sample_data, model_selector, load_css
 from src.train_model import evaluate_model
 
 warnings.filterwarnings('ignore')

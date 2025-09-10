@@ -6,7 +6,7 @@ from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_percenta
 import warnings
 
 # Import project modules
-from src.app_utils import load_models, load_sample_data, model_selector, load_css
+from utils import load_models, load_sample_data, model_selector, load_css
 
 warnings.filterwarnings('ignore')
 

@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import warnings
 
 # Import project modules
-from src.app_utils import load_models, create_user_input, model_selector, load_css
+from utils import load_models, create_user_input, model_selector, load_css
 
 warnings.filterwarnings('ignore')
 

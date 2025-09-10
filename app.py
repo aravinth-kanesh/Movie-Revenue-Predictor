@@ -1,6 +1,6 @@
 import streamlit as st
 import warnings
-from src.app_utils import load_css
+from utils import load_css
 
 warnings.filterwarnings('ignore')
 
