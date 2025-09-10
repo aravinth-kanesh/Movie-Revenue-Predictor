@@ -1,0 +1,24 @@
+# Core libraries
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+joblib
+
+# ML / model explainability
+lightgbm
+xgboost
+shap
+textblob
+
+# Utilities
+fuzzywuzzy
+python-Levenshtein
+
+# Notebook / visualisation
+jupyter
+plotly
+
+# App
+streamlit

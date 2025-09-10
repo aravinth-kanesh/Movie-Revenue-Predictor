@@ -1,0 +1,43 @@
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
+.venv/
+env/
+ENV/
+*.env
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# Data files (large datasets)
+data/*.csv
+data/*.xlsx
+
+# Logs
+*.log
+
+# IDE / editor specific
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python distribution / packaging
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Streamlit / temporary files
+.streamlit/
+*.tmp
+
+# Pytest cache
+.pytest_cache/
