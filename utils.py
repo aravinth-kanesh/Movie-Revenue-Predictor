@@ -154,8 +154,14 @@ def create_user_input(feature_cols):
     release_month = st.sidebar.slider("Release Month", 1, 12, 6)
 
     # Genre selection
-    top_genres = ["Action", "Comedy", "Drama", "Horror", "Romance", "Thriller", "Adventure", "Crime"]
-    selected_genres = st.sidebar.multiselect("Genres", top_genres, default=["Action"])
+    top_genres = ["Action", "Comedy", "Drama", "Thriller", "Adventure"]
+
+    selected_genres = st.sidebar.multiselect(
+        "Genres",
+        top_genres,
+        default=["Action"],
+        help="Select one or more genres that describe your movie"
+    )
 
     # Create input DataFrame
     input_data = pd.DataFrame({
