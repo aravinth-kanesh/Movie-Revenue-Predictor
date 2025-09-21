@@ -32,11 +32,11 @@ if __name__ == "__main__":
     models_dir = "data/models"
     os.makedirs(models_dir, exist_ok=True)
 
-    print(f"8GB RAM Optimized Training:")
+    print(f"8GB RAM Optimised Training:")
     print(f"   Sample size: {nrows:,} records")
     print(f"   Expected time: 3-5 minutes")
 
-    # Load and optimize data
+    # Load and optimise data
     start_time = time.time()
     df = preprocess(data_path, nrows=nrows)
     df = optimise_for_8gb_ram(df)
