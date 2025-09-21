@@ -165,14 +165,16 @@ def create_user_input(feature_cols):
     for col in feature_cols:
         if col.startswith('genres_'):
             genre_name = col.replace('genres_', '')
-            available_genres.append(genre_name)
+            # Only keep strings that are not digits
+            if not genre_name.isdigit():
+                available_genres.append(genre_name)
 
     available_genres = sorted(list(set(available_genres)))
 
     selected_genres = st.sidebar.multiselect(
         "Genres",
         available_genres if available_genres else ["Action", "Comedy", "Drama"],
-        default=[available_genres[0]] if available_genres else ["Action"],
+        default=["Action"],
         help="Select genres for your movie"
     )
 
