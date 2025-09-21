@@ -146,56 +146,70 @@ def create_user_input(feature_cols):
     """Create Streamlit sidebar input and return DataFrame and params."""
     st.sidebar.header("🎬 Movie Features Input")
 
-    # Input sliders
-    vote_average = st.sidebar.slider("Vote Average", 0.0, 10.0, 8.5)
+    # Input sliders - including budget and popularity
+    vote_average = st.sidebar.slider("Vote Average", 0.0, 10.0, 8.5, step=0.1)
     vote_count = st.sidebar.slider("Vote Count", 2000, 35000, 20000)
     runtime = st.sidebar.slider("Runtime (minutes)", 30, 300, 120)
     release_year = st.sidebar.slider("Release Year", 1950, 2025, 2023)
     release_month = st.sidebar.slider("Release Month", 1, 12, 6)
 
-    # Genre selection
-    top_genres = ["Action", "Comedy", "Drama", "Thriller", "Adventure"]
+    # Budget slider - CRITICAL feature
+    budget_millions = st.sidebar.slider("Budget ($ millions)", 0.5, 400.0, 50.0, step=0.5)
+    budget = budget_millions * 1_000_000
+
+    # Popularity slider
+    popularity = st.sidebar.slider("Popularity", 10.0, 500.0, 100.0, step=5.0)
+
+    # Get actual genres from your trained model
+    available_genres = []
+    for col in feature_cols:
+        if col.startswith('genres_'):
+            genre_name = col.replace('genres_', '')
+            available_genres.append(genre_name)
+
+    available_genres = sorted(list(set(available_genres)))
 
     selected_genres = st.sidebar.multiselect(
         "Genres",
-        top_genres,
-        default=["Action"],
-        help="Select one or more genres that describe your movie"
+        available_genres if available_genres else ["Action", "Comedy", "Drama"],
+        default=[available_genres[0]] if available_genres else ["Action"],
+        help="Select genres for your movie"
     )
 
-    # Create input DataFrame
+    # Create input DataFrame with ALL required features
     input_data = pd.DataFrame({
         "vote_average": [vote_average],
         "vote_count": [vote_count],
         "runtime": [runtime],
         "release_year": [release_year],
         "release_month": [release_month],
+        "budget": [budget],
+        "popularity": [popularity]
     })
 
     # Apply feature engineering
     input_data = create_basic_features(input_data)
 
+    # Add budget features that models expect
+    input_data['log_budget'] = np.log1p(input_data['budget'])
+
     # Add genre features
-    for genre in top_genres:
+    for genre in available_genres:
         input_data[f"genres_{genre}"] = int(genre in selected_genres)
 
-    # Remove runtime if log_runtime is used
+    # Remove raw features if log versions exist
     if "runtime" in input_data.columns and "log_runtime" in feature_cols:
         input_data = input_data.drop(columns=["runtime"])
+    if "budget" in input_data.columns and "log_budget" in feature_cols:
+        input_data = input_data.drop(columns=["budget"])
 
-    # Ensure all required features exist with default values
+    # Ensure all required features exist
     for col in feature_cols:
         if col not in input_data.columns:
             input_data[col] = 0
 
-    # Select only features the model expects
-    try:
-        input_data = input_data[feature_cols]
-    except KeyError as e:
-        st.error(f"Missing features for model: {e}")
-        st.write("Available columns:", list(input_data.columns))
-        st.write("Required features:", feature_cols)
-        raise
+    # Select only model features
+    input_data = input_data[feature_cols]
 
     return input_data, {
         "vote_average": vote_average,
@@ -203,6 +217,8 @@ def create_user_input(feature_cols):
         "runtime": runtime,
         "release_year": release_year,
         "release_month": release_month,
+        "budget_millions": budget_millions,
+        "popularity": popularity,
         "genres": selected_genres
     }
 

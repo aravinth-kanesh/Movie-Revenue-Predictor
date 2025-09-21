@@ -4,8 +4,7 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 import warnings
-
-from utils import load_models, load_sample_data, model_selector, load_css, prepare_sample_data
+from utils import load_models, load_sample_data, load_css, prepare_sample_data
 
 # Add src to path for train_model import
 import sys
@@ -14,8 +13,7 @@ if 'src' not in sys.path:
     sys.path.append('src')
 
 try:
-    from src.train_model import evaluate_model
-
+    from src.train_model import evaluate_model_cv
     EVALUATION_AVAILABLE = True
 except ImportError:
     EVALUATION_AVAILABLE = False
@@ -52,7 +50,7 @@ if EVALUATION_AVAILABLE:
     with st.spinner("🔥 Evaluating models..."):
         for name, model in models.items():
             try:
-                mse_mean, mse_std, r2_mean, r2_std = evaluate_model(model, sample_X, sample_y, cv=3)
+                mse_mean, mse_std, r2_mean, r2_std = evaluate_model_cv(model, sample_X, sample_y, cv=3)
                 model_metrics[name] = {
                     'MSE': mse_mean,
                     'MSE_std': mse_std,

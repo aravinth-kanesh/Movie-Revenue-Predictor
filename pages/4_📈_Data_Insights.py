@@ -1,6 +1,5 @@
 import streamlit as st
 import numpy as np
-import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_percentage_error
@@ -104,7 +103,7 @@ col1, col2 = st.columns(2)
 
 with col1:
     if has_revenue_data:
-        # Filter out very low revenues for better visualization
+        # Filter out very low revenues for better visualisation
         revenue_data = sample_data['revenue'][sample_data['revenue'] > 1000]
         if len(revenue_data) > 0:
             fig3 = px.histogram(
@@ -121,7 +120,7 @@ with col1:
 
 with col2:
     pred_revenue_actual = np.expm1(sample_pred)
-    # Filter predictions for better visualization
+    # Filter predictions for better visualisation
     pred_filtered = pred_revenue_actual[pred_revenue_actual > 1000]
 
     if len(pred_filtered) > 0:
@@ -187,19 +186,12 @@ else:
 if sample_data is not None:
     st.subheader("💡 Dataset Insights")
 
-    col1, col2, col3 = st.columns(3)
+    col1, col2 = st.columns(2)
 
     with col1:
         st.metric("Total Movies", len(sample_data))
 
     with col2:
-        if 'release_year' in sample_data.columns:
-            year_range = f"{sample_data['release_year'].min():.0f} - {sample_data['release_year'].max():.0f}"
-            st.metric("Year Range", year_range)
-        else:
-            st.metric("Year Range", "N/A")
-
-    with col3:
         if has_revenue_data:
             avg_revenue = sample_data['revenue'][sample_data['revenue'] > 0].mean()
             st.metric("Avg Revenue", f"${avg_revenue:,.0f}")

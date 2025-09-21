@@ -45,6 +45,8 @@ with col1:
     st.write(f"⏱️ Runtime: **{input_params['runtime']} minutes**")
     st.write(f"📅 Release: **{input_params['release_month']}/{input_params['release_year']}**")
     st.write(f"🎭 Genres: **{', '.join(input_params['genres'])}**")
+    st.write(f"💰 Budget: **${input_params['budget_millions']:.1f}M**")
+    st.write(f"⭐ Popularity: **{input_params['popularity']:.1f}**")
 
     with st.expander("🔍 View Full Feature Vector"):
         st.dataframe(input_df.T, use_container_width=True)

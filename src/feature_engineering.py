@@ -18,6 +18,15 @@ def create_basic_features(df):
     else:
         df['release_year'] = df['release_month'] = 0
 
+    # Budget (log)
+    if 'budget' in df.columns:
+        df['log_budget'] = np.log1p(df['budget'].clip(lower=0))
+    else:
+        df['log_budget'] = 0
+
+    # Popularity
+    df['popularity'] = df['popularity'].fillna(0)
+
     df.fillna(0, inplace=True)
     return df
 
@@ -35,7 +44,8 @@ def add_topN_multihot(df, col, top_n=5):
 
     return df
 
-def add_text_svd(df, col, svd_dim=5, max_features=200):
+def add_text_svd(df, col, svd_dim=3, max_features=100):
+    """Reduce dimensions and max_features to speed up training."""
     if col not in df:
         return df
 
@@ -55,10 +65,9 @@ def add_text_svd(df, col, svd_dim=5, max_features=200):
 
 def expand_features(df):
     df = create_basic_features(df)
-    df = add_topN_multihot(df, 'genres', top_n=5)
-    df = add_topN_multihot(df, 'production_companies', top_n=10)
-    df = add_text_svd(df, 'overview', svd_dim=5)
-    df = add_text_svd(df, 'tagline', svd_dim=3)
+    df = add_topN_multihot(df, 'genres', top_n=10)
+    df = add_text_svd(df, 'overview', svd_dim=3, max_features=100)  # reduced from 5/200
+    df = add_text_svd(df, 'tagline', svd_dim=2, max_features=100)   # reduced from 3/200
 
     new_features = [c for c in df.columns if re.search(r'_svd_|genres_|production_companies_', c)]
     return df, new_features
