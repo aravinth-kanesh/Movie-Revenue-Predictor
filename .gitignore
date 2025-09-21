@@ -7,6 +7,7 @@ __pycache__/
 
 # Virtual environments
 .venv/
+venv/
 env/
 ENV/
 *.env
@@ -17,6 +18,14 @@ ENV/
 # Data files (large datasets)
 data/*.csv
 data/*.xlsx
+data/*.json
+data/*.parquet
+
+# Model artifacts (these can be large)
+data/models/*.pkl
+data/models/*.joblib
+data/models/*.h5
+data/models/*.model
 
 # Logs
 *.log
@@ -24,6 +33,8 @@ data/*.xlsx
 # IDE / editor specific
 .vscode/
 .idea/
+*.swp
+*.swo
 
 # OS files
 .DS_Store
@@ -35,9 +46,15 @@ Thumbs.db
 dist/
 build/
 
-# Streamlit / temporary files
+# Streamlit cache and config
 .streamlit/
 *.tmp
 
 # Pytest cache
 .pytest_cache/
+
+# Additional ML-specific ignores
+*.npy
+*.npz
+experiments/
+mlruns/

@@ -1,24 +1,21 @@
-# Core libraries
-pandas
-numpy
-scikit-learn
-matplotlib
-seaborn
-joblib
+# Core ML and data processing
+pandas>=1.5.0
+numpy>=1.21.0
+scikit-learn>=1.3.0
+joblib>=1.2.0
 
-# ML / model explainability
-lightgbm
-xgboost
-shap
-textblob
+# Machine learning models
+lightgbm>=3.3.0
 
-# Utilities
-fuzzywuzzy
-python-Levenshtein
+# Model explainability
+shap>=0.42.0
 
-# Notebook / visualisation
-jupyter
-plotly
+# Visualisation
+matplotlib>=3.6.0
+plotly>=5.15.0
 
-# App
-streamlit
+# Web application
+streamlit>=1.28.0
+
+# Development
+jupyter>=1.0.0
