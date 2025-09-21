@@ -1,8 +1,8 @@
 # 🎬 ShowbizPredictor: Movie Revenue Prediction
 
-[![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://python.org)
-[![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-red.svg)](https://streamlit.io)
-[![ML](https://img.shields.io/badge/ML-Random%20Forest%20%7C%20LightGBM-green.svg)]()
+[![Python](https://img.shields.io/badge/Python-3.9+-blue.svg?style=for-the-badge)](https://python.org)
+[![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-red.svg?style=for-the-badge)](https://streamlit.io)
+[![ML](https://img.shields.io/badge/ML-Random%20Forest%20%7C%20LightGBM-green.svg?style=for-the-badge)]()
 
 A production-ready machine learning application that predicts movie box office revenue using advanced feature engineering and model explainability techniques.
 
@@ -10,7 +10,7 @@ A production-ready machine learning application that predicts movie box office r
 
 This project demonstrates a complete ML pipeline solving a real business problem: predicting movie revenue to inform investment decisions. Built with modern MLOps practices, it showcases data science skills through an interactive web application.
 
-**Key Achievements:**
+### Key Achievements:
 
 - Built end-to-end ML pipeline processing 5,000+ movie records (sample from 930k dataset)
 - Achieved R² scores of 0.85+ using ensemble methods
@@ -82,49 +82,49 @@ ShowbizPredictor/
 
 ## 🚀 Quick Start
 
-# Clone repository
+1. **Clone repository**
 
-```bash
-git clone https://github.com/yourusername/ShowbizPredictor
-cd ShowbizPredictor
-```
-
-# Setup environment
-
-**macOS / Linux**
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
+   ```bash
+   git clone https://github.com/yourusername/ShowbizPredictor
+   cd ShowbizPredictor
    ```
+
+2. **Setup environment**
+
+   **macOS / Linux**
+   
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+      ```
     
-**Windows**
+   **Windows**
+   
+   ```bash
+   python -m venv venv
+   venv\Scripts\activate
+   ```
 
-```bash
-python -m venv venv
-venv\Scripts\activate
-```
+3. **Install dependencies**
 
-# Install dependencies
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-```bash
-pip install -r requirements.txt
-```
+4. **Download [TMDB Movies Dataset (2023, 930k movies) on Kaggle](https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies)
+ and place in data/**
 
-# Download [TMDB Movies Dataset (2023, 930k movies) on Kaggle](https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies)
- and place in data/
+5. **Train models**
 
-# Train models
+   ```bash
+   python train_all_models.py
+   ```
 
-```bash
-python train_all_models.py
-```
+6. **Launch application**
 
-# Launch application
-
-```bash
-streamlit run 0_🏠_Home.py
-```
+   ```bash
+   streamlit run 0_🏠_Home.py
+   ```
 
 ## 💡 Key Learning Outcomes
 
