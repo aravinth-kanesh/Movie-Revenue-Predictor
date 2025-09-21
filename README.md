@@ -12,8 +12,7 @@ This project demonstrates a complete ML pipeline solving a real business problem
 
 ### Key Achievements:
 
-- Built end-to-end ML pipeline processing 5,000+ movie records (sample from 930k dataset)
-- Achieved R² scores of 0.85+ using ensemble methods
+- Built end-to-end ML pipeline processing 15,000+ movie records (sample from 930k dataset)
 - Implemented SHAP explainability for transparent predictions
 - Deployed interactive dashboard with 4 distinct analysis modes
 
@@ -32,13 +31,6 @@ This project demonstrates a complete ML pipeline solving a real business problem
 - **Model Explainability**: SHAP waterfall plots and feature importance analysis  
 - **Performance Analytics**: Cross-validation metrics and residual analysis
 - **Data Visualisation**: Plotly charts for model comparison and insights
-
-## 📊 Results
-
-| Model         | R² Score | RMSE | Key Strengths                                   |
-|---------------|----------|------|-------------------------------------------------|
-| Random Forest | 0.87     | 0.45 | Feature interpretability, robust to outliers    |
-| LightGBM      | 0.89     | 0.42 | Higher accuracy, efficient training             |
 
 ## 🛠 Tech Stack
 
