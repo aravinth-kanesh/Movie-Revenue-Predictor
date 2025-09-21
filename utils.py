@@ -88,7 +88,7 @@ def load_models():
 
 # Load and preprocess sample dataset
 @st.cache_data
-def load_sample_data(nrows=1000):
+def load_sample_data(nrows=1000000):
     """Load and preprocess sample TMDB dataset for analysis."""
     try:
         data_path = "data/tmdb_movie_dataset.csv"
