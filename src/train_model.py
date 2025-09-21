@@ -3,22 +3,25 @@ from sklearn.ensemble import RandomForestRegressor
 import lightgbm as lgb
 
 def evaluate_model_cv(model, X, y, cv=3):
-    """Fast CV evaluation"""
+    """Fast CV evaluation using limited threads."""
     mse = -cross_val_score(model, X, y, cv=cv, scoring="neg_mean_squared_error", n_jobs=2)
     r2 = cross_val_score(model, X, y, cv=cv, scoring="r2", n_jobs=2)
     return mse.mean(), mse.std(), r2.mean(), r2.std()
 
 def train_random_forest(df, feature_cols, full_eval=False, save_dir=None):
+    """
+    Fast, memory-friendly Random Forest tuned for skewed revenue data.
+    Limits dominance of log_budget and high-cardinality features.
+    """
     X, y = df[feature_cols], df["log_revenue"]
 
-    # Fast, balanced Random Forest
     model = RandomForestRegressor(
-        n_estimators=100,  # Reduced for speed
-        max_depth=6,  # Balanced depth
-        min_samples_split=30,
-        min_samples_leaf=15,
-        max_features=0.4,  # Prevent budget dominance
-        n_jobs=2,  # Limit for 8GB RAM
+        n_estimators=150,        # Slightly more trees for stability
+        max_depth=8,             # Balanced depth
+        min_samples_split=20,    # Avoid tiny splits
+        min_samples_leaf=10,     # Reduce overfitting
+        max_features=0.5,        # Limit budget dominance
+        n_jobs=2,                # 8GB RAM safe
         random_state=42
     )
 
@@ -27,11 +30,13 @@ def train_random_forest(df, feature_cols, full_eval=False, save_dir=None):
     return model, X, y, mse_mean, mse_std, r2_mean, r2_std
 
 def train_lightgbm(df, feature_cols, full_eval=False, save_dir=None):
+    """
+    LightGBM with moderate estimators and regularization for quick training.
+    """
     X, y = df[feature_cols], df["log_revenue"]
 
-    # Fast, well-regularized LightGBM
     model = lgb.LGBMRegressor(
-        n_estimators=200,  # Moderate number
+        n_estimators=200,        # Moderate for speed
         learning_rate=0.08,
         max_depth=6,
         num_leaves=30,
@@ -42,7 +47,7 @@ def train_lightgbm(df, feature_cols, full_eval=False, save_dir=None):
         reg_lambda=0.1,
         random_state=42,
         verbose=-1,
-        n_jobs=1  # Single thread for memory
+        n_jobs=1                 # Safe for limited memory
     )
 
     mse_mean, mse_std, r2_mean, r2_std = evaluate_model_cv(model, X, y, cv=3)

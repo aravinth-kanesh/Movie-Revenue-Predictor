@@ -28,7 +28,7 @@ def optimise_for_8gb_ram(df):
 if __name__ == "__main__":
     # Optimal settings for 8GB RAM
     data_path = "data/tmdb_movie_dataset.csv"
-    nrows = 20000  # Sweet spot for performance vs memory
+    nrows = 1000000
     models_dir = "data/models"
     os.makedirs(models_dir, exist_ok=True)
 
